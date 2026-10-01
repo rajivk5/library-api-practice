@@ -1,0 +1,17 @@
+{
+  "name": "library-api-practice",
+  "version": "1.0.0",
+  "description": "Express CRUD practice project with in-memory storage",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "tap test/*.js --disable-coverage"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0",
+    "tap": "^21.1.0"
+  }
+}
