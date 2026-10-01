@@ -10,12 +10,15 @@ const {
 
 const router = express.Router();
 
-// TODO: Add the five routes.
-// Required:
-// POST   /books
-// GET    /books
-// GET    /books/:id
-// PUT    /books/:id
-// DELETE /books/:id
+router.post("/books", createBook);
+
+router.get("/books", getBooks);
+
+router.get("/books/:id", getBookById);
+
+router.put("/books/:id", updateBook);
+
+router.delete("/books/:id", deleteBook);
+
 
 module.exports = router;

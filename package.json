@@ -12,6 +12,6 @@
   },
   "devDependencies": {
     "supertest": "^7.0.0",
-    "tap": "^21.1.0"
+    "tap": "^21.8.0"
   }
 }
