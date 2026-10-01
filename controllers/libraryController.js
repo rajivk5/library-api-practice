@@ -56,27 +56,95 @@ const books = [
 // TODO: Implement these functions.
 
 const createBook = (req, res) => {
-  // TODO
+  try {
+    const { title, author, available } = req.body;
+
+    if (
+      typeof title !== "string" ||
+      typeof author !== "string" ||
+      typeof available !== "boolean"
+    ) {
+      return res.status(400).json({ error: "Invalid input data" });
+    }
+
+    const ids = books.map((book) => book.id);
+    const newId = ids.length > 0 ? Math.max(...ids) + 1 : 1;
+
+    const newBook = {
+      id: newId,
+      title,
+      author,
+      available,
+    };
+
+    books.push(newBook);
+    res.status(201).json(newBook);
+  } catch (err) {
+    res.status(500).send({
+      error: err.message,
+    });
+  }
 };
 
 const getBooks = (req, res) => {
-  // TODO
+  res.status(200).json(books);
 };
 
 const getBookById = (req, res) => {
-  // TODO
+  try {
+    const id = Number(req.params.id);
+
+    const book = books.find((book) => book.id === id);
+
+    if (!book) return res.status(404).json({ error: "Book not found" });
+
+    res.status(200).json(book);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
 };
 
 const updateBook = (req, res) => {
-  // TODO
+  const bookId = Number(req.params.id);
+  const { title, author, available } = req.body;
+
+  if (
+    typeof title !== "string" ||
+    typeof author !== "string" ||
+    typeof available !== "boolean"
+  ) {
+    return res.status(400).json({ error: "invalid book data" });
+  }
+
+  const book = books.find((book) => book.id === bookId);
+
+  if (!book) {
+    return res.status(404).json({ error: "book not found" });
+  }
+
+  book.title = title;
+  book.author = author;
+  book.available = available;
+  res.status(200).json(book);
 };
 
 const deleteBook = (req, res) => {
-  // TODO
+  const bookId = Number(req.params.id);
+
+  const bookIndex = books.findIndex((book) => book.id === bookId);
+
+  if (bookIndex === -1) {
+    return res.status(404).json({ error: "book not found" });
+  }
+
+  books.splice(bookIndex, 1);
+
+  res.status(200).json({
+    message:"Book deleted successfully"
+  });
 };
 
 module.exports = {
-  books,
   createBook,
   getBooks,
   getBookById,
